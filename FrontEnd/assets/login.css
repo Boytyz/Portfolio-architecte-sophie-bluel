@@ -1,0 +1,200 @@
+/* --- Reset CSS et styles de base (ne pas modifier) --- */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/** end reset css **/
+
+/* --- Styles pour la page de Login --- */
+body {
+	max-width: 1140px;
+	margin:auto;
+	font-family: 'Work Sans' ;
+	font-size: 14px;
+    background-color: #FFFEF8;
+}
+header {
+	display: flex;
+	justify-content: space-between;
+	margin: 50px 0;
+    background-color: #FFFEF8;
+}
+
+h1{
+	display: flex;
+	flex-direction: column;
+	font-family: 'Syne';
+	font-size: 22px;
+	font-weight: 800;
+	color: #B1663C
+}
+
+h1 > span {
+	font-family: 'Work Sans';
+	font-size:10px;
+	letter-spacing: 0.1em;
+;
+}
+
+h2{
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 30px;
+	color: #1D6154
+}
+nav ul {
+	display: flex;
+	align-items: center;
+	list-style-type: none;
+}
+
+/* Style de base pour les <li> */
+nav ul li {
+    color: #000; /* Couleur noire par défaut */
+    transition: color 0.3s ease; /* Animation fluide sur la couleur */
+  }
+  
+  /* Couleur au survol de l'élément <li> */
+  nav ul li:hover {
+    color: #B1663C; /* Couleur lors du passage de la souris */
+  }
+  
+  /* Les liens héritent de la couleur du parent et ne sont pas soulignés */
+  nav ul li a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  /* Désactiver la couleur violette ou le soulignement au clic/visite */
+  nav ul li a:visited,
+  nav ul li a:hover,
+  nav ul li a:active {
+    color: inherit;
+    text-decoration: none;
+  }  
+
+nav li {
+	padding: 0 10px;
+	font-size: 1.2em;
+}
+
+li:hover {
+	color: #B1663C;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px auto;
+    max-width: 400px;
+    background-color: #FFFEF8;
+    padding: 40px;
+    border-radius: 8px;
+}
+
+.login-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-section h2 {
+    text-align: center;
+}
+
+.login-section a {
+    color: #3D3D3D;
+    text-align: center;
+}
+
+.login-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #3D3D3D;
+}
+
+.form-group input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    width: 380px;
+}
+
+.login-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 30px;
+    background-color: #1D6154;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 180px;
+    
+}
+
+.login-button:hover {
+    background-color: #154a3f;
+}
+
+footer nav ul {
+	display: flex;
+	justify-content: flex-end;
+	margin: 2em;
+    background-color: white;
+}
