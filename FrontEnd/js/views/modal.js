@@ -282,29 +282,45 @@ ajoutPhotoForm.addEventListener('submit', async (e) => {
   // Afficher un état de chargement
   validateBtn.textContent = 'Envoi en cours...';
   validateBtn.disabled = true;
+
   
-  // Créer un objet FormData et y ajouter les données du formulaire
-  const formData = new FormData();
-  formData.append('image', file);
-  formData.append('title', titleInput.value.trim());
-  formData.append('categoryId', parseInt(categorySelect.value)); // S'assurer que c'est un entier
-  
-  // Déboguer : vérifier le contenu du FormData
-  console.log("Contenu du FormData avant envoi:");
-  for (let pair of formData.entries()) {
-    console.log(`${pair[0]}: ${typeof pair[1] === 'object' ? 'File: ' + pair[1].name : pair[1]}`);
-  }
-  
+    // Créer un objet FormData et y ajouter les données du formulaire
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('title', titleInput.value.trim());
+    formData.append('categoryId', parseInt(categorySelect.value)); // S'assurer que c'est un entier
+
+
   try {
     // Utiliser la fonction addWork pour ajouter le travail
     const newWork = await addWork(formData);
     console.log('Travail ajouté avec succès:', newWork);
     
-    // [Le reste du code...]
+    // Réinitialiser tous les champs du formulaire
+    document.querySelector('.ajout-photo-form').reset();
+    
+    // Effacer aussi la prévisualisation de l'image si vous en avez une
+    const imagePreview = document.querySelector('.image-preview-container img');
+    if (imagePreview) {
+      // Cacher la prévisualisation
+      imagePreview.parentElement.style.display = 'none';
+    }
+    
+    // Réafficher le sélecteur de fichier qui était caché pendant la prévisualisation
+    const fileSelector = document.querySelector('.add-photo-container');
+    if (fileSelector) {
+      fileSelector.style.display = 'flex';
+    }
+    
+    // Rafraîchir l'affichage de la galerie pour inclure le nouveau projet
+    await refreshModalGallery(); 
+    
   } catch (error) {
     console.error('Erreur lors de l\'ajout du travail:', error);
     formError.textContent = `Erreur: ${error.message || 'Une erreur est survenue'}`;
-  } finally {
+  } 
+  
+  finally {
     validateBtn.textContent = 'Valider';
     validateBtn.disabled = false;
   }
@@ -381,15 +397,15 @@ function switchView(modalContainer, view) {
 }
 
 // Fonction pour actualiser la galerie de la modale
-function refreshModalGallery(modalContainer) {
-  const photoContainer = modalContainer.querySelector('.photo-container');
+function refreshModalGallery() {
+  const photoContainer = document.querySelector('.photo-container');
   if (!photoContainer) return;
   
   // Vider le conteneur
   photoContainer.innerHTML = '';
   
   // Remplir avec les travaux actualisés
-  const photos = document.allWorks.slice(0, 11);
+  const photos = document.allWorks //.slice(0, 11);
   photos.forEach(photo => {
     const wrapper = document.createElement('div');
     wrapper.style.flex = '0 0 calc(20% - 10px)';
@@ -415,9 +431,10 @@ function refreshModalGallery(modalContainer) {
     deleteBtn.style.width = '17px';
     deleteBtn.style.height = '17px';
 
-    deleteBtn.addEventListener('click', () => {
-      const workId = parseInt(wrapper.dataset.id);
-      deleteWork(workId, wrapper);
+    deleteBtn.addEventListener('click', async() => {
+      const workId = parseInt(photo.id);
+      let response = await deleteWork(workId);
+     if (response) wrapper.remove();
     });
 
     wrapper.appendChild(img);

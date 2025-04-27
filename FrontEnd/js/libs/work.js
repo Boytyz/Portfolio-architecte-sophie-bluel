@@ -19,7 +19,7 @@ export async function fetchWorks() {
   return response.json();
 }
 
-export async function deleteWork(workId, element) {
+export async function deleteWork(workId) {
   try {
     const response = await fetch(`http://localhost:5678/api/works/${workId}`, {
       method: 'DELETE',
@@ -34,7 +34,7 @@ export async function deleteWork(workId, element) {
     
     // Pour les requêtes DELETE, nous ne tentons pas de traiter un JSON
     // car l'API peut retourner un corps vide (204 No Content)
-    if (element) element.remove();
+
     console.log(`Travail ${workId} supprimé avec succès.`);
     return true;
   } catch (error) {
