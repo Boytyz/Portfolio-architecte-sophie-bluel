@@ -1,7 +1,7 @@
 import { fetchCategories } from "../libs/categories.js";
 import { fetchPhotoById, fetchWorks } from "../libs/work.js";
 
-console.log("tout est bon");
+console.log ("tout est bon");
 
 document.allWorks = []; // Stockera les travaux récupérés depuis l'API
 

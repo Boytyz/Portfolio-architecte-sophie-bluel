@@ -121,6 +121,12 @@ li:hover {
 	color: #B1663C;
 }
 
+.instagram-icon {
+	width: 22px;
+	height: 22px;
+	
+}
+
 main {
     display: flex;
     flex-direction: column;
@@ -158,6 +164,7 @@ main {
 .form-group {
     display: flex;
     flex-direction: column;
+    width: 379px;
 }
 
 .form-group label {
@@ -172,11 +179,10 @@ main {
     border-radius: 4px;
     font-size: 16px;
     box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-    width: 380px;
 }
 
 .login-button {
-    padding: 12px 20px;
+    padding: 10px 20px;
     border: none;
     border-radius: 30px;
     background-color: #1D6154;
@@ -195,6 +201,6 @@ main {
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em;
+	width: 100%;
     background-color: white;
 }
