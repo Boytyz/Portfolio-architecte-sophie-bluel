@@ -44,7 +44,8 @@ function refreshModalGallery(photoContainer) {
     deleteBtn.style.width = "17px";
     deleteBtn.style.height = "17px";
 
-    deleteBtn.addEventListener("click", async () => {
+    deleteBtn.addEventListener ("click", async (e) => {
+      e.stopPropagation(); // Empêche la propagation de l'événement
       const workId = parseInt(photo.id);
       let response = await deleteWork(workId);
       if (response) {
@@ -88,7 +89,7 @@ function renderModal({ modalTitleText, onClose, onSubmit }) {
   closeButton.classList.add("modal-close");
   closeButton.innerHTML = "&times;";
   closeButton.style.position = "absolute";
-  closeButton.style.top = "10px";
+  closeButton.style.top = "-45px";
   closeButton.style.right = "10px";
   closeButton.addEventListener("click", onClose);
   header.appendChild(closeButton);
@@ -97,9 +98,11 @@ function renderModal({ modalTitleText, onClose, onSubmit }) {
   backarrow.classList.add("modal-backarrow");
   backarrow.innerHTML = '<i class="fa-solid fa-arrow-left"></i>';
   backarrow.style.position = "absolute";
-  backarrow.style.top = "10px";
+  backarrow.style.top = "-45px";
   backarrow.style.left = "10px";
   backarrow.style.display = "none";
+  backarrow.style.backgroundColor = "transparent";
+  backarrow.style.border = "none";
   backarrow.addEventListener("click", () => {
     switchView(modalContainer, "gallery");
     titleElement.innerText = "Galerie photo";
@@ -131,7 +134,7 @@ function renderModal({ modalTitleText, onClose, onSubmit }) {
   buttonContainer.classList.add("button-container");
   buttonContainer.style.display = "flex";
   buttonContainer.style.justifyContent = "center";
-  buttonContainer.style.marginTop = "10px";
+  buttonContainer.style.marginTop = "25px";
 
   // Créer le bouton "Ajouter une photo"
   const addPhotoToggleBtn = document.createElement("button");
@@ -162,7 +165,7 @@ function renderModal({ modalTitleText, onClose, onSubmit }) {
   <div class="ajout-photo-container" style="padding: 20px; font-family: inherit;">
     <form class="ajout-photo-form" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
       <div class="ajout-photo-header" style="display: flex; flex-direction: column; align-items: center; background-color: #E8F1F6; padding: 10px; gap: 10px;">
-        <i class="fa-solid fa-image" style="font-size: 24px; color: #1D6154;"></i>
+        <i class="fa-solid fa-image" style="font-size: 76px; color: #A7A7A7;"></i>
         <label for="photo-file" class="custom-file-upload" style="display: inline-block; cursor: pointer; background: #fff; border: 1px solid #1D6154; border-radius: 60px; padding: 10px 20px; text-align: center; color: #1D6154; font-family: 'Syne', sans-serif;">
            + Ajouter photo
           <input type="file" id="photo-file" accept="image/*" required style="display: none;"/>
@@ -171,18 +174,22 @@ function renderModal({ modalTitleText, onClose, onSubmit }) {
         <p class="file-info" style="font-size: 12px; color: #444; margin-top: 5px;">jpg, png : 4mo max</p>
       </div>
       <label for="photo-title" style="font-weight: bold;">Titre</label>
-      <input type="text" id="photo-title" placeholder="" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0px 4px 14px 0px #00000017;"/>
-      <label for="photo-category" style="font-weight: bold;">Choisir une catégorie</label>
-      <select id="photo-category" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0px 4px 14px 0px #00000017;">
-        <option value="">Choisir une catégorie</option>
+      <input type="text" id="photo-title" placeholder="" required style="padding: 10px; border: 1px solid #ccc; box-shadow: 0px 4px 14px 0px #00000017; height: 30px; font-family: 'Work Sans', sans-serif;"/>
+      <label for="photo-category" style="font-weight: bold;">Catégorie</label>
+      <select id="photo-category" required style="padding: 10px; border: 1px solid #ccc; box-shadow: 0px 4px 14px 0px #00000017; height: 51px; font-family: 'Work Sans', sans-serif;">
+        <option value=""></option>
       </select>
-      <div class="form-error" style="color: red; min-height: 20px;"></div>
-      <button type="submit" class="validate-btn" style="background-color: #1D6154; border: none; border-radius: 60px; padding: 10px 20px; color: #fff; font-family: 'Syne', sans-serif; cursor: pointer;">
+      
+      <!-- Ligne grise ajoutée -->
+      <hr style="border: none; border-top: 1px solid #ccc; margin: 25px 0;">
+      <button type="submit" class="validate-btn" style="background-color: #1D6154; border: none; border-radius: 60px; padding: 10px 20px; color: #fff; font-family: 'Syne', sans-serif; cursor: pointer; width: 240px; margin: 0 auto;">
         Valider
       </button>
     </form>
   </div>
 `;
+// <div class="form-error" style="color: red; min-height: 20px;"></div>
+  // Ajouter un message d'erreur pour le formulaire
 
   modalContainer.appendChild(addPhotoView);
 
@@ -267,7 +274,7 @@ function renderModal({ modalTitleText, onClose, onSubmit }) {
 
   // Gestionnaire d'événement submit du formulaire
   ajoutPhotoForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+    e.stopPropagation();
     formError.textContent = "";
 
     // Sélectionner les champs du formulaire
@@ -346,8 +353,6 @@ function renderModal({ modalTitleText, onClose, onSubmit }) {
     const selectElement = addPhotoView.querySelector("#photo-category");
     try {
       const categories = await fetchCategories();
-      selectElement.innerHTML =
-        '<option value="">Choisir une catégorie</option>';
       categories.forEach((cat) => {
         const option = document.createElement("option");
         option.value = cat.id;
