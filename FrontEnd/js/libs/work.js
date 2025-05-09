@@ -75,11 +75,6 @@ export async function addWork(formData) {
     
     const result = await response.json();
     
-    // Une fois le travail ajouté avec succès, mettre à jour document.allWorks
-    if (document.allWorks) {
-      document.allWorks = [result, ...document.allWorks];
-    }
-    
     return result;
   } catch (error) {
     console.error('Erreur d\'ajout :', error);

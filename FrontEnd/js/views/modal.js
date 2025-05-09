@@ -11,6 +11,7 @@ window.renderGallery = renderGallery;
  * @param {HTMLElement} photoContainer - Le conteneur DOM où injecter les photos.
  */
 function refreshModalGallery(photoContainer) {
+  console.log("Rafraîchissement de la galerie modale avec les travaux actuels.");
   if (!photoContainer) return;
 
   // Vider le conteneur
@@ -31,6 +32,8 @@ function refreshModalGallery(photoContainer) {
     img.style.width = "80px";
     img.style.height = "auto";
     img.style.justifySelf = "center";
+    img.style.position = "relative";
+    
 
     const deleteBtn = document.createElement("button");
     deleteBtn.innerHTML =
@@ -43,6 +46,8 @@ function refreshModalGallery(photoContainer) {
     deleteBtn.style.color = "#fff";
     deleteBtn.style.width = "17px";
     deleteBtn.style.height = "17px";
+    deleteBtn.style.position = "absolute";
+    
 
     deleteBtn.addEventListener ("click", async (e) => {
       e.stopPropagation(); // Empêche la propagation de l'événement
@@ -179,7 +184,7 @@ function renderModal({ modalTitleText, onClose, onSubmit }) {
       <select id="photo-category" required style="padding: 10px; border: 1px solid #ccc; box-shadow: 0px 4px 14px 0px #00000017; height: 51px; font-family: 'Work Sans', sans-serif;">
         <option value=""></option>
       </select>
-      
+      <div class="form-error" style="color: red;"></div>
       <!-- Ligne grise ajoutée -->
       <hr style="border: none; border-top: 1px solid #ccc; margin: 25px 0;">
       <button type="submit" class="validate-btn" style="background-color: #1D6154; border: none; border-radius: 60px; padding: 10px 20px; color: #fff; font-family: 'Syne', sans-serif; cursor: pointer; width: 240px; margin: 0 auto;">
@@ -188,8 +193,7 @@ function renderModal({ modalTitleText, onClose, onSubmit }) {
     </form>
   </div>
 `;
-// <div class="form-error" style="color: red; min-height: 20px;"></div>
-  // Ajouter un message d'erreur pour le formulaire
+
 
   modalContainer.appendChild(addPhotoView);
 
@@ -259,6 +263,9 @@ function renderModal({ modalTitleText, onClose, onSubmit }) {
         previewContainer.appendChild(preview);
       };
       reader.readAsDataURL(file);
+      if (formError.textContent) {
+        formError.style.display = "block";
+      }
     }
 
     validateForm();
@@ -274,7 +281,8 @@ function renderModal({ modalTitleText, onClose, onSubmit }) {
 
   // Gestionnaire d'événement submit du formulaire
   ajoutPhotoForm.addEventListener("submit", async (e) => {
-    e.stopPropagation();
+    console.log("Form submitted");
+    e.preventDefault();
     formError.textContent = "";
 
     // Sélectionner les champs du formulaire
@@ -338,7 +346,7 @@ function renderModal({ modalTitleText, onClose, onSubmit }) {
       switchView(modalContainer, "gallery");
       titleElement.innerText = "Galerie photo";
     } catch (error) {
-      console.error("Erreur lors de l'ajout du travail:", error);
+      console.log("Erreur lors de l'ajout du travail:", error);
       formError.textContent = `Erreur: ${
         error.message || "Une erreur est survenue"
       }`;
