@@ -28,8 +28,18 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+html, body {
+	height: 100%; /* Assure que le body prend toute la hauteur de la fenêtre */
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+}
 body {
-	line-height: 1;
+	line-height: 1;	
+	margin:auto;
+	font-family: 'Work Sans' ;
+	font-size: 14px;
+	background-color: #FFFEF8;
 }
 ol, ul {
 	list-style: none;
@@ -47,18 +57,14 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
-body {
-	max-width: 1140px;
-	margin:auto;
-	font-family: 'Work Sans' ;
-	font-size: 14px;
-	background-color: #FFFEF8;
-}
+
+
 header {
 	display: flex;
 	justify-content: space-between;
 	margin: 50px 0;
 	background-color: #FFFEF8;
+	max-width: 1140px;
 }
 section {
 	margin: 50px 0;
@@ -96,12 +102,6 @@ nav ul {
 /* Style de base pour les <li> */
 nav ul li {
 	color: #000; /* Couleur noire par défaut */
-	transition: color 0.3s ease; /* Animation fluide sur la couleur */
-  }
-  
-  /* Couleur au survol de l'élément <li> */
-  nav ul li:hover {
-	color: #B1663C; /* Couleur lors du passage de la souris */
   }
   
   /* Les liens héritent de la couleur du parent et ne sont pas soulignés */
@@ -124,7 +124,7 @@ nav li {
 }
 
 li:hover {
-	color: #B1663C;
+	font-weight: 700;
 }
 
 .instagram-icon {
@@ -250,7 +250,9 @@ footer nav ul {
 }
 
 footer {
-	background-color: #fff;
+	width: 100%; /* Prend toute la largeur de l'écran */
+	background-color: #fff; /* Couleur de fond */	
+	height: 60px; /* Hauteur fixe pour le footer */
 }
 
 /* Barre noire (mode édition) */
@@ -417,6 +419,12 @@ footer {
 	position: absolute;
 	right: 10px;
   }
-  
-  
+
+/* Le contenu principal prend tout l'espace disponible */
+main {
+  flex: 1; /* Permet au contenu principal de s'étendre */
+  width: 1140px;
+}
+
+
 

@@ -24,7 +24,9 @@ function refreshModalGallery(photoContainer) {
     wrapper.style.flex = "0 0 calc(20% - 10px)";
     wrapper.style.display = "flex";
     wrapper.style.justifyContent = "center";
+    wrapper.style.position = "relative";
     wrapper.dataset.id = photo.id;
+    
 
     const img = document.createElement("img");
     img.src = photo.imageUrl;
@@ -33,7 +35,6 @@ function refreshModalGallery(photoContainer) {
     img.style.height = "auto";
     img.style.justifySelf = "center";
     img.style.position = "relative";
-    
 
     const deleteBtn = document.createElement("button");
     deleteBtn.innerHTML =
@@ -47,6 +48,8 @@ function refreshModalGallery(photoContainer) {
     deleteBtn.style.width = "17px";
     deleteBtn.style.height = "17px";
     deleteBtn.style.position = "absolute";
+    deleteBtn.style.top = "5px";
+    deleteBtn.style.right = "5px";
     
 
     deleteBtn.addEventListener ("click", async (e) => {
@@ -120,6 +123,13 @@ function renderModal({ modalTitleText, onClose, onSubmit }) {
   const galleryView = document.createElement("div");
   galleryView.classList.add("modal-view", "gallery-view");
 
+  // Créer une div qui contiendra les photos et le bouton
+  const galleryContent = document.createElement("div");
+  galleryContent.style.display = "flex";
+  galleryContent.style.flexDirection = "column";
+  galleryContent.style.alignItems = "center"; // Centrer le bouton et les photos
+  galleryContent.style.gap = "25px"; // Espacement entre les photos et le bouton
+
   // Créer une div qui contiendra les photos, avec une organisation en grid
   const photoContainer = document.createElement("div");
   photoContainer.classList.add("photo-container");
@@ -132,14 +142,14 @@ function renderModal({ modalTitleText, onClose, onSubmit }) {
   // Afficher les travaux depuis document.allWorks
   refreshModalGallery(photoContainer);
 
-  galleryView.appendChild(photoContainer);
+  // Ajouter le conteneur des photos au conteneur principal
+  galleryContent.appendChild(photoContainer);
 
   // Créer une nouvelle div pour contenir le bouton "Ajouter une photo"
   const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("button-container");
   buttonContainer.style.display = "flex";
   buttonContainer.style.justifyContent = "center";
-  buttonContainer.style.marginTop = "25px";
 
   // Créer le bouton "Ajouter une photo"
   const addPhotoToggleBtn = document.createElement("button");
@@ -157,8 +167,15 @@ function renderModal({ modalTitleText, onClose, onSubmit }) {
     titleElement.innerText = "Ajout photo";
   });
 
+  // Ajouter le bouton au conteneur du bouton
   buttonContainer.appendChild(addPhotoToggleBtn);
-  galleryView.appendChild(buttonContainer);
+
+  // Ajouter le conteneur du bouton au conteneur principal
+  galleryContent.appendChild(buttonContainer);
+
+  // Ajouter le contenu de la galerie (photos + bouton) à la vue galerie
+  galleryView.appendChild(galleryContent);
+
   modalContainer.appendChild(galleryView);
 
   // ----- Vue "Ajout photo" -----
